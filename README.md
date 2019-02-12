@@ -3,4 +3,4 @@ A custom web portal for audience to use to interact with light show from their m
 
 
 
-![Device.html](/DeviceHTML.png)
+![PhoneDemo](/Doc/phonewa.png)
