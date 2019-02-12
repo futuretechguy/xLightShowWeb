@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/main.js"></script>
+    <script src="js/pghome.js"></script>
+    <script src="js/reconnecting-websocket.min.js"></script>
+    <script src="js/websocket.js"></script>
+
+    <title>Our Light Show</title>
+</head>
+<body class="body">
+    <script type="text/javascript">
+        
+
+    </script>
+
+    <div class="maingridpCont">
+        <div class="pagetitle">
+            <a id="Show-Title" href="" class="titletext" target="_blank">Our Family Lights Show</a>
+        </div>
+        <div align="Right" class="dsonglabel">
+            <text id=Curr_Step_Lbl>Current Song:</text>
+        </div>
+
+        <div class="dsongvalue">
+            <text id=Curr_Step>??</text>
+        </div>
+        <div align="Center" class="dsongimg">
+            <img id=StepImg class="statusimg" src="img/ShowTime.png" alt="">
+        </div>
+
+        <div align="Right" class="dartistlabel">
+            <text>Artist:</text>
+        </div>
+
+        <div class="dartistvalue">
+            <text id="Curr_Artist" >??</text>
+        </div>
+        <div align="Right" class="dalbumlabel">
+            <text >Album:</text>
+        </div>
+
+        <div class="dalbumvalue">
+            <text id="Curr_Album">??</text>
+        </div>
+           
+        <div align="Center" class="dactiontext">
+            <text >Next:</text><text id="Next-Song"></text><text hidden id=Curr_Status_Txt></text>
+        </div>
+        <div class="dactions">
+            <div class="dbackbtnlbl" align="Right"></div>
+            <Div class="dbaclbtn">
+                <button class="btn" type="button" id="Btn_Back">Back</button>
+            </Div>
+            <div class="dnextlbl" align="Right"></DIV>
+            <DIV class="dnextbtn">
+                <button class="btn" type="button" id="Btn_Next">Next</button>
+            </DIV>
+        </div>
+        <div align="Center" class="dsongselect">
+           <div id="mainselection" class="selplaylist">
+            <select id="Sel_Step" >
+              <option>Select song</option>
+            </select>
+            </div>
+        </div>
+        <div id="SrvStatus" class="dpagefooter">
+            <div align="Right" class="srvstatuslbl">Server:</div>
+            <div align="Left" class="srvstatus" ><text id="Server_Status">Pending....</text></div>
+        </div>
+        <div align="Center" class="dinfolbl">
+            <text class="infotext">Click the "Back" or "Next" button to play the previous or next song. Click dropdown arrow to select and play a song from the playlist</text>
+        </div>
+        <div align="Center" class="dfblink">
+            <a id="fburl" href="" target="_blank">
+                <img class="dfbline" src="img/facebooks.png" /><span class="sptxt" id="stxt">Follow us</span>
+            </a>
+        </div>
+        <div align="Center" class="dpromo">
+                <a id="yturl" href="" target="_blank">
+                    <img class="dytline" src="img/youtube.png" /><span class="sptxt" id="uttxt">Visit our channel</span>
+                </a>
+        </div>
+    </div>
+</body>
+</html>

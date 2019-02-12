@@ -1,0 +1,665 @@
+
+/*   Start of playlist.html  */
+
+.mcontainer {
+    display: grid;
+    grid-template-columns: repeat(auto fill, 100%);
+    grid-template-rows: repeat(auto fill, 100%);
+    grid-template-areas: ". modsel ."  ". alertdiv ." ". pgtitle ." ". songlbl ." ". songval ." ". songimglbl ." ". songimgval ." ". artistlbl ." ". artistval ." ". albumlbl ." ". albumval ." ". songbtn ." ". pgfooter .";
+    /*grid-gap: 5px;*/
+
+}
+.modsel {
+    grid-area: modsel;
+    padding-bottom: 1%;
+    padding-top: 2%;
+    visibility: show;
+    background: rgb(168, 203, 219); 
+    border-top-style: solid;
+    border-top-color: blue;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+
+
+
+
+.pgtitle {
+    grid-area: pgtitle;
+    background: rgb(191, 228, 245);
+    padding: 2% 0% 0% 0%;
+    display: grid;
+    grid-template-columns: 1fr .45fr 1.3fr;
+    grid-template-rows: repeat(auto fill, 100%);;
+    grid-template-areas: "plimage pllabel plval";
+
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+
+}
+
+.ttext{
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(204, 44, 44);
+    
+ }
+
+.alertdiv{
+    grid-area: alertdiv;
+    background: rgb(191, 228, 245);
+}
+
+.plimage {
+    grid-area: plimage;
+    
+}
+.pllabel {
+    grid-area: pllabel;
+    
+}
+.plval {
+    grid-area: plval;
+}
+
+.songlbl {
+    grid-area: songlbl;
+    padding: 1% 0% 0% 2.4%;
+    text-align: left;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.songval {
+    grid-area: songval;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.songimglbl {
+    grid-area: songimglbl;
+    padding: 1% 0% 0% 2.4%;
+    text-align: left;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.songimgval {
+    grid-area: songimgval;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.artistlbl {
+    grid-area: artistlbl;
+    padding: 1% 0% 0% 2.4%;
+    text-align: left;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.artistval {
+    grid-area: artistval;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.albumlbl {
+    grid-area: albumlbl;
+    padding: 1% 0% 0% 2.4%;
+    text-align: left;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.albumval {
+    grid-area: albumval;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.songbtn {
+    grid-area: songbtn;
+    padding: 2% 0% 1% 0%;
+    background: rgb(191, 228, 245);
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+.pgfooter {
+    grid-area: pgfooter;
+    background: rgb(191, 228, 245);
+    padding: 0% 0% .5% 0%;
+    display: grid;
+    grid-template-columns: repeat(auto fill, 100%);
+    grid-template-rows: repeat(auto fill, 100%);
+    grid-template-areas: "selcol" "selcolval";
+    border-bottom-style: solid;
+    border-bottom-color: blue;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-left-color: blue;
+    border-right-color: blue;
+}
+
+
+.table {
+    width: 100%;
+}
+
+.tbl-header{
+   background-color: #5b9fc9;
+}
+.selcol{
+    grid-area: selcol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+
+.songcol {
+    grid-area: songcol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+
+.albumcol{
+    grid-area: albumcol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+.imagecol{
+    grid-area: imagecol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+.artistcol {
+    grid-area: artistcol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+
+.btncol {
+    grid-area: btncol;
+    background: rgb(148, 171, 236);
+    padding-top: 1%;
+    padding-bottom: 1%
+}
+
+.selcolval{
+    grid-area: selcolval;
+
+}
+
+.dinput {
+    width: 95%;
+    padding: .5% 0% .5% 0%;
+    font-size: 16px;
+}
+.button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    width: 95%;
+    height: 1%;
+}
+.button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+
+
+.alert-danger{
+    background-color: rgb(207, 65, 55); /* Green */
+    color: rgb(17, 2, 2)
+}
+
+.alert-success {
+    background-color: rgba(41, 151, 14, 0.623); /* Green */
+    color: rgb(17, 2, 2)
+}
+
+.alert{
+    text-align: center;
+    width: 100%;
+}
+
+.btn-delete {
+    width: 1%;
+    height: 1%;  
+}
+
+.colimage{
+    height: 1%;
+    /*width: 0%;*/
+}
+
+/* Start index html */
+.body {
+    background: rgb(245, 246, 247);
+}
+.maingridpCont {
+    display: grid;
+    grid-template-columns: repeat(auto fill, 100%);
+    grid-template-rows: repeat(auto fill, 100%);
+    grid-template-areas: ". pagetitle pagetitle ." ". dsonglabel dsongvalue ." ". dsongimg dsongimg ." ". dartistlabel dartistvalue ." ". dalbumlabel dalbumvalue ." ". dactiontext dactiontext ." ". dactions dactions ." ". dsongselect dsongselect ." ". dpagefooter dpagefooter ." ". dinfolbl dinfolbl ." ". dfblink dfblink ." ". dpromo dpromo .";
+    /*grid-auto-rows: 20%;*/
+    grid-gap: 2px;
+}
+.maingridpCont>dev {
+    height: 100%;
+}
+.pagetitle {
+    grid-area: pagetitle;
+    padding: 2%;
+    background: rgb(168, 203, 219);
+}
+.titletext{
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(204, 44, 44);
+ }
+
+ titletext:hover {
+    color: rgb(44, 204, 71);
+ }
+
+.dsonglabel {
+    grid-area: dsonglabel;
+    background: rgb(191, 228, 245);
+ }
+
+.dsongvalue {
+    grid-area: dsongvalue;
+    background: rgb(191, 228, 245);
+ }
+.dsongimg {
+    grid-area: dsongimg;
+    /*grid-auto-flow: dense;*/
+    background: rgb(191, 228, 245);
+}
+
+.dartistlabel {
+    grid-area: dartistlabel;
+    background: rgb(191, 228, 245);
+ }
+
+.dartistvalue {
+    grid-area: dartistvalue;
+    background: rgb(191, 228, 245);
+ }
+
+.dalbumlabel {
+    grid-area: dalbumlabel;
+    background: rgb(191, 228, 245);
+ }
+
+.dalbumvalue {
+    grid-area: dalbumvalue;
+    background: rgb(191, 228, 245);
+ }
+.dactiontext {
+    grid-area: dactiontext;
+    background: rgb(191, 228, 245);
+}
+
+.dactions {
+    grid-area: dactions;
+    display: grid;
+    grid-template-columns: repeat(auto fill, 100%);
+    grid-template-areas: "dbackbtnlbl dbaclbtn dnextlbl dnextbtn";
+    background: rgb(191, 228, 245);
+}
+
+/*     Button area (Next/Back)      */
+.dbackbtnlbl {
+    grid-area: dbackbtnlbl;
+    padding-top: 2%;
+    background: rgb(191, 228, 245);
+ }
+
+.dbaclbtn {
+    grid-area: dbaclbtn;
+    background: rgb(191, 228, 245);
+ }
+
+ .dnextlbl {
+    grid-area: dnextlbl;
+    padding-top: 2%;
+    background: rgb(191, 228, 245);
+ }
+ .dnextbtn {
+    grid-area: dnextbtn;
+    background: rgb(191, 228, 245);
+ }
+
+/*     End Button area     */
+
+.dsongselect{
+    grid-area: dsongselect;
+    background: rgb(191, 228, 245);
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.dpagefooter {
+    grid-area: dpagefooter;
+    display: grid;
+    grid-template-columns: repeat(auto fill, 100%);
+    grid-template-rows: repeat(auto fill, 100%);
+    grid-template-areas: "srvstatuslbl srvstatus";
+    background: rgb(168, 203, 219);
+ }
+
+.srvstatuslbl {
+    grid-area:srvstatuslbl;
+    background: rgb(168, 203, 219);
+}
+
+.srvstatus{
+    grid-area:srvstatus;
+    background: rgb(168, 203, 219);
+}
+
+.dinfolbl {
+    grid-area:dinfolbl;
+    background-color:rgb(220, 230, 233);
+}
+
+.dfblink {
+    grid-area:dfblink;
+    padding-left: 0%;
+    padding-top: 0%;
+    background: rgb(168, 203, 219);
+}
+.dfbline {
+    vertical-align:bottom;
+}
+.dinfotext { 
+    display:block;
+    word-wrap:break-word;
+}
+
+.dpromo {
+    grid-area:dpromo;
+    padding-top: 1%;
+    background: rgb(168, 203, 219);
+}
+
+.sptxt{
+    padding-left: 1%;
+}
+
+ .btn {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 17px;
+    padding: 3px 20px 3px 20px;
+    text-decoration: none;
+}
+
+.btnsave {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 17px;
+    padding: 3px 0px 3px 0px;
+    text-decoration: none;
+    width:7%;
+    height:10%;
+      
+}
+
+#mainselection select {
+    border: 0;
+    color: rgb(243, 244, 247);
+    background: transparent;
+    font-size: 17px;
+    padding: 2px 10px;
+    width: 350px;
+    *width: 300px;
+    *background: #58B14C;
+    -webkit-appearance: none;
+    -moz-appearance:none;
+    appearance:none;
+ }
+ 
+
+ #mainselection {
+    overflow:hidden;
+    width:300px;
+    -moz-border-radius: 28px;
+    -webkit-border-radius: 28px;
+    border-radius: 28px;
+    color: black;
+    background: #3498db url("../img/15xvbd5.png") no-repeat scroll 270px center;
+   
+ }
+
+ select option {
+    background: rgba(199, 222, 245, 0.3);
+    color: rgb(8, 8, 8);
+ }
+
+ option:after {
+    content: ' (' attr(data-descr) ')';
+  }
+
+ .plistselect {
+    color: rgb(20, 19, 19);
+    overflow:hidden;
+    width:226px;
+    height:23px;
+    -moz-border-radius: 28px;
+    -webkit-border-radius: 28px;
+    border-radius: 28px;
+    background-color: #779126;
+    background: #f7f8f8 no-repeat scroll 200px center;
+ }
+
+
+
+
+
+
+@media screen  and (min-Width: 320px) and (max-Width: 374px){
+
+    .dbackbtnlbl {
+        grid-area: dbackbtnlbl;
+        padding-top: 15%;
+        background: rgb(191, 228, 245);
+     }
+
+    .dnextlbl {
+        grid-area: dnextlbl;
+        padding-top: 15%;
+        background: rgb(191, 228, 245);
+     }
+    .titletext{
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(13, 42, 104);
+     } 
+     .body {
+        background: rgb(212, 234, 241);
+    }
+    .dsongselect{
+        grid-area: dsongselect;
+        background: rgb(191, 228, 245);
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+    .statusimg {
+        width:70%;
+    }
+}  
+
+@media screen and (min-Width: 375px) and (max-Width: 414px){
+
+    .dbackbtnlbl {
+        grid-area: dbackbtnlbl;
+        padding-top: 15%;
+        background: rgb(191, 228, 245);
+     }
+
+    .dnextlbl {
+        grid-area: dnextlbl;
+        padding-top: 20%;
+        background: rgb(191, 228, 245);
+     }
+    .titletext{
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(13, 42, 104);
+     } 
+     .body {
+        background: rgb(210, 232, 241);
+    }
+    .dsongselect{
+        grid-area: dsongselect;
+        background: rgb(191, 228, 245);
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+    .dinfolbl {
+        grid-area:dinfolbl;
+        background-color:rgb(191, 228, 245);
+        padding-top: 3%;
+        padding-bottom: 4%;
+    }
+
+}  
+
+@media screen and (min-Width: 415px) and (max-Width: 776px){
+
+    .dbackbtnlbl {
+        grid-area: dbackbtnlbl;
+        padding-top: 15%;
+        background: rgb(191, 228, 245);
+     }
+
+    .dnextlbl {
+        grid-area: dnextlbl;
+        padding-top: 15%;
+        background: rgb(191, 228, 245);
+     }
+    .titletext{
+        font-weight: bold;
+        font-size: 30px;
+        color: rgb(13, 42, 104);
+     } 
+     .body {
+        background: rgb(216, 235, 243);
+    }
+    .dsongselect{
+        grid-area: dsongselect;
+        background: rgb(191, 228, 245);
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+    .dinfolbl {
+        grid-area:dinfolbl;
+        background-color:rgb(191, 228, 245);
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+    #mainselection select {
+        border: 0;
+        color: rgb(243, 244, 247);
+        background: transparent;
+        font-size: 17px;
+        padding: 8px 15px;
+        width: 350px;
+        *width: 300px;
+        *background: #58B14C;
+        -webkit-appearance: none;
+        -moz-appearance:none;
+        appearance:none;
+     }
+     
+    .statusimg {
+        width:50%;
+        /*height:50%;*/
+    }
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 17px;
+        padding: 5px 25px 5px 25px;
+        text-decoration: none;
+    }
+}  
+
+
+
+
+
+
+/*select#Play-List {
+    color: #fff;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+    background-color: #779126;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding-left: 15px;
+}*/
