@@ -1,4 +1,4 @@
-{"show":[{"name":"Seaton Family Show",
+{"show":[{"name":"Johnson Family Show",
  "youtube":"https://youtu.be/pF12-3h8hpA",
  "time":"8:00PM - 10:00PM",
  "facebook":"https://www.facebook.com/groups/628061113896314/",
