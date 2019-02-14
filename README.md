@@ -1,6 +1,5 @@
 # xLightsShowWeb
-A custom web portal for audience to use to interact with a xLights light show from their mobile phones. Please see Directions.docx in the doc folder for more details. 
 
+A custom web portal for audience to use to interact with a xLights light show from their mobile phones. Please see Directions.docx in the doc folder for more details.
 
-
-![PhoneDemo](/Doc/phonewa.png)
+![PhoneDemo](/doc/phonewa.png)
