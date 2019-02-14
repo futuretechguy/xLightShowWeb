@@ -356,7 +356,7 @@ function allStorage() {
 //creat the GetShow.dat file
 function setShowData() {
     var xsKey = "show"
-    var sn = "Seaton Family Show"
+    var sn = "Jones Family Show"
     var yt = "https://youtu.be/pF12-3h8hpA"
     var st = "8:00PM - 10:00PM"
     var fb = "https://www.facebook.com/groups/628061113896314/"
