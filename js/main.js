@@ -142,7 +142,6 @@ class UI {
         }
     }
 
-
     static uncheckRows() {
         const tblcells = document.querySelector('#tbl-Play-List');        
         for (var i = 1; i < tblcells.rows.length; i++) {
@@ -273,7 +272,7 @@ function checkImageExists(imageUrl, callBack) {
 } */
 
 
-
+//set Facebook link on load if configured in show data file
 function loadfbLink(objlink, eid) {
     var linkEl = document.querySelector(eid);
     if (isNaN(linkEl) === true) {
@@ -289,7 +288,7 @@ function loadfbLink(objlink, eid) {
 }
     
 
-
+//Get data from server
 function stashRetrieve(xsKeyName) {
     var xsKey = 'Get' + xsKeyName;   
     current_Loading =xsKey;
@@ -298,6 +297,7 @@ function stashRetrieve(xsKeyName) {
     ws.send(cmdjson); 
 }
 
+//Store data on server
 function stashStore(xsKeyName){
     var xsKeyData = JSON.parse(localStorage.getItem(xsKeyName.toLocaleLowerCase()));
     if (typeof xsKeyData === "undefined") {
@@ -309,7 +309,7 @@ function stashStore(xsKeyName){
       
     var wsmessage = {Type:"stash", Command:"Store", Key:xsKey, Data:xsData, Reference:""};
     var cmdjson = JSON.stringify(wsmessage);
-    console.log(cmdjson);
+    //console.log(cmdjson);
     ws.send(cmdjson);
 }
 
@@ -327,18 +327,19 @@ function SetConnectionStatus(ostatus){
     }
 }
 
-
+//Add option to optionlost
 function addOption(el){
     var select = document.getElementById(el);
     select.options[select.options.length] = new Option('New Element', '0', false, false);
 
 }
-
+//remove option in option list
 function removeAllOptions(el){
     var select = document.getElementById(el);
     select.options.length = 0;
 }
 
+//return all keys in local storage
 function allStorage() {
 
     var values = [],
@@ -352,6 +353,7 @@ function allStorage() {
     return values;
 }
 
+//creat the GetShow.dat file
 function setShowData() {
     var xsKey = "show"
     var sn = "Seaton Family Show"
