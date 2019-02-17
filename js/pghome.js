@@ -30,7 +30,7 @@ function ProcessMessage(oMsgvalue) {
         }
     }
 
-    //Process status first and subsiquent status changes 
+    //Process first and subsiquent status changes 
     if (typeof obj.status !== "undefined") {
         if (obj.status !== current_status) {
             current_status = obj.status;
@@ -41,7 +41,7 @@ function ProcessMessage(oMsgvalue) {
                 currstep.innerHTML= current_step;
                
                 //request playlist from server
-                 var message;
+                var message;
                 message = { Type: "query", Query: "GetPlayListSteps", Parameters: obj.playlist, Reference: "xScheduleQuery" };
                 var cmdjson = JSON.stringify(message);
                 ws.send(cmdjson);
