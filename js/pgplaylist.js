@@ -1,10 +1,18 @@
+import {pgPlaylist, divdeny} from "./html.js";
 
 var Curr_Playlist
 window.onload = function () {
+    var logonState = sessionStorage.getItem("isloginValid");
+    if (logonState === "true") {
+        var frmplist = document.getElementById("frmDiv");
+        frmplist.innerHTML = pgPlaylist ;
+    } else {
+        var frmplist = document.getElementById("frmDiv");
+        frmplist.innerHTML = divdeny;
+        window.location = "../login.html"; // Redirecting to login page.
+    }
+
     var pselect = document.getElementById("Sel_Plist");
-    
-
-
     if (localStorage.length > 1) {
         for (var i = 0, len = localStorage.length; i < len; ++i) {
             pselect.options[pselect.options.length] = new Option(localStorage.key(i), '0', false, false);
@@ -123,6 +131,7 @@ window.onload = function () {
         }
         var pListData = JSON.parse(localStorage.getItem(xsKeyName));
 
+        //var xsData = '{\"songs\":' + pListData + '}';
         var xsData = JSON.stringify({songs:pListData});  
         
         xsKeyName = xsKeyName.toString().charAt(0).toUpperCase() + xsKeyName.toString().substr(1).toLowerCase();
@@ -130,7 +139,7 @@ window.onload = function () {
     }
 }
 
-//process user selection in dropdownlist
+
 function processSelect() {
     const playlisttbl = document.querySelector('#tbl-Play-List')
     var e = document.getElementById("Sel_Plist");
@@ -140,7 +149,7 @@ function processSelect() {
     loadPlayList(e.options[e.selectedIndex].text)
 };
 
-//load select playlist
+
 function loadPlayList(playlist) {
     UI.displaySongs(playlist);
     Curr_Playlist = playlist;
@@ -148,7 +157,7 @@ function loadPlayList(playlist) {
 
 
 }
-//upload Get[Playlist].dat to server  
+    
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="css/login.css" rel="stylesheet">
+    <script type="module" src="js/login.js"></script>
+    <script src="js/md5.min.js"></script>
+    <title>Data access</title>
+</head>
+<body>
+    <form class="form" id="form_id" method="post" name="myform"></form>
+    <div class="mcontainer">
+        <div align="Center"  class="dltitle">
+            <h2>Show Data Login </h2>
+        </div>
+        <div class="dlusrlbl">
+            <label>User Name :</label>
+        </div>
+        <div class="dlusrnmval">
+            <input class="dinput" type="text" name="username" id="username" />
+        </div>
+    
+        <div class="dlusrpwlbl">
+            <label>Password :</label>
+        </div>
+        <div class="dlusrpwval">
+            <input class="dinput" type="password" name="password" id="password" />
+        </div>
+        <div class="dlbtn">
+            <input class="btn" type="button" value="Login" id="submit" />
+        </div>
+    
+        <div align="Center" class="dlusrinfo">
+            <span><b class="note">Note : </b>Please enter your username and password and click "Login" to continue. <br /><b class="valid"></span>
+        </div>
+        <div class="dlfooter">
+        </div>
+    </div>
+    </form>
+
+</body>
+</html>
