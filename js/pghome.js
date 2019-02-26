@@ -1,6 +1,6 @@
 
 function ProcessMessage(oMsgvalue) {
-    obj = JSON && JSON.parse(oMsgvalue) || $.parseJSON(oMsgvalue);
+    var obj = JSON && JSON.parse(oMsgvalue) || $.parseJSON(oMsgvalue);
     var currstep = document.querySelector("#Curr_Step");
     var currsteplbl = document.querySelector("#Curr_Step_Lbl");
     var currstatustext = document.querySelector("#Curr_Status_Txt");
@@ -15,25 +15,33 @@ function ProcessMessage(oMsgvalue) {
         if (obj.step !== current_step) {
             current_step = obj.step;
             currstep.innerHTML = obj.step;
-             ProcessStateChange();
+            //setSessionItem("locCurrStep",obj.step);
         }
     }
 
     //listen for next step and update the elements
     if (typeof obj.nextstep !== "undefined") {
         if (obj.nextstep !== current_nextstep) {
+            //first time startup
+            if (typeof(current_nextstep) !== "undefined") {
+                ProcessStateChange();
+            }
+
+            //setSessionItem("loCurrNextStep", obj.nextstep);
             current_nextstep = obj.nextstep;
             currnextstep.innerHTML = current_nextstep;
-           
+
         } else if (obj.nextstep == "") {
+            //setSessionItem("loCurrNextStep", "Last song in playlist");
             currnextstep.innerHTML = "Last song in playlist";
         }
     }
 
-    //Process first and subsiquent status changes 
+    //Process status first and subsiquent status changes 
     if (typeof obj.status !== "undefined") {
         if (obj.status !== current_status) {
             current_status = obj.status;
+            //setSessionItem("locCurrStatus", obj.status);
             if (obj.status === "playing") {
                
                 currsteplbl.innerHTML = "Song";
@@ -41,7 +49,7 @@ function ProcessMessage(oMsgvalue) {
                 currstep.innerHTML= current_step;
                
                 //request playlist from server
-                var message;
+                 var message;
                 message = { Type: "query", Query: "GetPlayListSteps", Parameters: obj.playlist, Reference: "xScheduleQuery" };
                 var cmdjson = JSON.stringify(message);
                 ws.send(cmdjson);
@@ -60,6 +68,8 @@ function ProcessMessage(oMsgvalue) {
                 selstep.options.length = 1;
                 selstep.options[0].text = "idle";
                 stepimg.src = "img/ShowStopped.png";
+                //setSessionItem("locCurrStep","");
+                //setSessionItem("loCurrNextStep", "");
                 
             } else if (obj.status === "paused") {
  
@@ -100,14 +110,13 @@ function ProcessMessage(oMsgvalue) {
         }
     }
 
-    //populate the current_playlist variable
+
     if (typeof obj.playlist !== "undefined") {
         if (obj.playlist !== current_playlist) {
             current_playlist =  obj.playlist;
         }
     }
 
-    //Process Get[PlayList].dat data response
     if (typeof obj.songs !== "undefined") {
         if (obj.songs.length > 0) {   
             setLoadState("Success", current_Loading, obj.songs)
@@ -115,7 +124,6 @@ function ProcessMessage(oMsgvalue) {
         }
     }
 
-    //process GetShow.dat data response
     if (typeof obj.show !== "undefined") {
         if (obj.show.length > 0) {
             setLoadState("Success", current_Loading, obj.show)
@@ -123,7 +131,6 @@ function ProcessMessage(oMsgvalue) {
         }
     }
 
-    //shows when stash comand but did not find a requested file
     if (typeof obj.stash !== "undifined" && typeof obj.result !== "undifined") {
         if (obj.stash === "Retrieve" && obj.result === "failed") {
             setLoadState("Failed", current_Loading, "")
@@ -131,7 +138,6 @@ function ProcessMessage(oMsgvalue) {
         } 
     }
 
-    //shows when stash command fails
     if (typeof obj.message !== "undifined" && typeof obj.result !== "undifined"){
         if (obj.message === "JSON message not well formed." && obj.result === "failed") {
             console.log(`${current_Loading} ${obj.message}`)
@@ -171,7 +177,7 @@ function ProcessStateChange() {
 
     //if data file is not found
     if (typeof (current_Data) === "undefined") {
-        
+        console.log("Data not loaded");
         //remove white spaces from image file
         var im = current_step.toString().replace(/\s+/g, '')
         if (im === "") {
@@ -190,7 +196,7 @@ function ProcessStateChange() {
             } else {
 
                 checkImageExists("img/" + im + ".jpg", function (existsImage) {
-                    //console.log("no data--- img/" + im + ".jpg");
+                    console.log("no data--- img/" + im + ".jpg");
 
                     if (existsImage == true) {
                         stepimg.src = "img/" + im + ".jpg";
@@ -206,8 +212,9 @@ function ProcessStateChange() {
 
       //data file is found load it
     } else {
+        console.log("data loaded")
         //load current data row for current step
-        GetCurrentRow(current_Data, current_step)  //file not created get current row
+        GetCurrentRow(current_Data, current_step)  //file created get current row
 
         if (current_row.imgpath.length === 0) {
             var im = current_step.toString().replace(/\s+/g, '')
@@ -260,7 +267,6 @@ window.onload = function () {
         stepsel.selectedIndex = 0;
     };
 
-    //send socket cmd to skip to next song (Next button)
     document.querySelector("#Btn_Next").onclick = function (evt) {
         var message;
         message = { Type: "command", Command: "Next step in current playlist", Parameters: "", Data: "", Reference: "" };
@@ -268,14 +274,12 @@ window.onload = function () {
         ws.send(cmdjson);
     };
 
-    //chick action for show title, may be used for promotional site like patreon etc. 
     document.querySelector("#Show-Title").onclick = function (evt) {
         var showObj = JSON.parse(show_data)
         document.querySelector("#Show-Title").innerHTML = showObj.name;
         window.open(showObj.url);
     }
 
-    //send socket cmd to jumo back to previous song (Back Button)
     document.querySelector("#Btn_Back").onclick = function (evt) {
         var message;
         message = { Type: "command", Command: "Prior step in current playlist", Parameters: "", Data: "", Reference: "" };
@@ -283,7 +287,7 @@ window.onload = function () {
         ws.send(cmdjson);
     };
 
-    //get show data create GetSgow.dat if it does not exist
+    //get show data
     getShowConfig();
    
 }

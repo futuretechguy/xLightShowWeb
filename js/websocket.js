@@ -1,9 +1,8 @@
 
-var ws = new ReconnectingWebSocket("ws://" + location.hostname + ":" + location.port + "/"); 
+var ws = new ReconnectingWebSocket("ws://" + location.hostname + ":" + "81" + "/"); 
 
 ws.onopen = function (evt) {
     SetConnectionStatus("Connected!")
-    conn_status.style.color = "green";
 };
 
 ws.onmessage = function (evt) {

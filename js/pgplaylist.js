@@ -2,6 +2,7 @@ import {pgPlaylist, divdeny} from "./html.js";
 
 var Curr_Playlist
 window.onload = function () {
+    //load form elements only if user is authenticated otherwise redirect to login page
     var logonState = sessionStorage.getItem("isloginValid");
     if (logonState === "true") {
         var frmplist = document.getElementById("frmDiv");
@@ -55,7 +56,7 @@ window.onload = function () {
             }
         }
     }
-
+    //process playlist select option
     document.querySelector("#Sel_Plist").onchange = function (evt) {
         const playlisttbl = document.querySelector('#tbl-Play-List')
         if (playlisttbl.rows.length > 0) {
@@ -130,8 +131,6 @@ window.onload = function () {
             xsKeyName = localStorage.key(0);
         }
         var pListData = JSON.parse(localStorage.getItem(xsKeyName));
-
-        //var xsData = '{\"songs\":' + pListData + '}';
         var xsData = JSON.stringify({songs:pListData});  
         
         xsKeyName = xsKeyName.toString().charAt(0).toUpperCase() + xsKeyName.toString().substr(1).toLowerCase();
@@ -140,16 +139,16 @@ window.onload = function () {
 }
 
 
-function processSelect() {
+/* function processSelect() {
     const playlisttbl = document.querySelector('#tbl-Play-List')
     var e = document.getElementById("Sel_Plist");
     if (playlisttbl.rows.length > 0) {
         UI.clearTableRows();
     }
     loadPlayList(e.options[e.selectedIndex].text)
-};
+}; */
 
-
+//load play list from localstore
 function loadPlayList(playlist) {
     UI.displaySongs(playlist);
     Curr_Playlist = playlist;
@@ -157,7 +156,7 @@ function loadPlayList(playlist) {
 
 
 }
-    
+ //used to upload *.dat files to server   
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
