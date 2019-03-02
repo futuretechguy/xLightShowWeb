@@ -87,7 +87,7 @@ class UI {
     }
 
     static sidExist(sid, plist) {
-        const PlayList = Store.getSongs(plist.toLocaleLowerCase);
+        const PlayList = Store.getSongs(plist); 
         var truefalse = false;
         PlayList.forEach((song, index) => {
             if (song.sid === sid) {
@@ -98,7 +98,7 @@ class UI {
     }
 
     static titleExist(title, plist) {
-        const PlayList = Store.getSongs(plist.toLocaleLowerCase());
+        const PlayList = Store.getSongs(plist);  
         var truefalse = false;
         PlayList.forEach((song, index) => {
             if (song.title.toLocaleLowerCase() === title.toLocaleLowerCase()) {
@@ -168,7 +168,7 @@ class UI {
         var truefalse = fales;
         if (localStorage.length > 1) {
             for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-                if (String(localStorage.key(i)).toLocaleLowerCase === plist.toLocaleLowerCase) {
+                if (String(localStorage.key(i)) === plist) {  
                     truefalse = true;
                 }
                 break;
@@ -242,7 +242,7 @@ class Store {
     }
 
     static getCurrSong(title, plist) {
-       const PlayList = Store.getSongs(plist.toLocaleLowerCase());
+       const PlayList = Store.getSongs(plist);  
        var songItem
         PlayList.forEach((song) => {
             if (song.title.toLocaleLowerCase() === title.toLocaleLowerCase()) {
@@ -299,14 +299,13 @@ function stashRetrieve(xsKeyName) {
 }
 
 function stashStore(xsKeyName){
-    var xsKeyData = JSON.parse(localStorage.getItem(xsKeyName.toLocaleLowerCase()));
+    var xsKeyData = JSON.parse(localStorage.getItem(xsKeyName)); 
     if (typeof xsKeyData === "undefined") {
         xsKeyData = createPlayListObj(Current_PlaylistSteps)
     }
-    xsKey = 'Get' + xsKeyName.toString().charAt(0).toUpperCase() + xsKeyName.toString().substr(1).toLowerCase();   
-    var xsData = JSON.stringify({songs:xsKeyData});                  //'{\"songs\":' + JSON.stringify(xsKeyData) + '}';   //'{\"songs\":' + xsKeyData + '}';
-
-      
+    var xsKey = 'Get' + xsKeyName;  
+    var xsData = JSON.stringify({songs:xsKeyData});      
+    
     var wsmessage = {Type:"stash", Command:"Store", Key:xsKey, Data:xsData, Reference:""};
     var cmdjson = JSON.stringify(wsmessage);
     console.log(cmdjson);
@@ -374,7 +373,7 @@ function setLoadState(oResult, oName, oData ) {
 
     if (oName === "GetShow") {
         if (oResult === "Failed"){
-            setShowData();
+            pushShowData();
             //console.log("Show data file was not found");
         } else {
             if (typeof oData[0].name !== "undefined") {
@@ -393,7 +392,7 @@ function setLoadState(oResult, oName, oData ) {
     } else if (oName === 'Get' + current_playlist) {
         if (oResult === "Failed"){
             stashStore(current_playlist);
-            console.log(`loading...  ${current_playlist}`);
+            //console.log(`loading...  ${current_playlist}`);
         } else {
             //push data to clients
             if (typeof(oData) !== "undefined") {
@@ -410,6 +409,9 @@ function setLoadState(oResult, oName, oData ) {
                         }
                     }
                 }); 
+                loadCachePlaylist(current_playlist)
+                ProcessStateChange();
+                //console.log("Loaded from server");
             }
         }
     }
@@ -418,7 +420,7 @@ function setLoadState(oResult, oName, oData ) {
 
 
 function loadCachePlaylist(xsKey){
-    var xsKeyData = JSON.parse(localStorage.getItem(xsKey.toLocaleLowerCase())); // localStorage.getItem(xsKey.toLocaleLowerCase());
+    var xsKeyData = JSON.parse(localStorage.getItem(xsKey)); 
     current_Data = xsKeyData;
 }
 
@@ -434,7 +436,7 @@ function GetCurrentRow(oData, oStep) {
 //used by sync process
 function getLocalRow(otitle){
     var oIndex
-    var xsKeyData = JSON.parse(localStorage.getItem(current_playlist.toLocaleLowerCase())); 
+    var xsKeyData = JSON.parse(localStorage.getItem(current_playlist)); 
         for (i = 0; i < xsKeyData .length; i++) {
             if (xsKeyData[i].title.toLocaleLowerCase() === otitle.toLocaleLowerCase()) {
                 oIndex = i;
@@ -446,7 +448,7 @@ function getLocalRow(otitle){
 //sync server data to client's local cache
 function updateLocalSong (serverRow, serverData) {
     var songloc;
-    const PlayList = JSON.parse(localStorage.getItem(current_playlist.toLocaleLowerCase())); 
+    const PlayList = JSON.parse(localStorage.getItem(current_playlist)); 
    
     PlayList.forEach((song, index) => {
         if(song.title.toLocaleLowerCase() === serverRow.title.toLocaleLowerCase()) {
@@ -477,7 +479,7 @@ function updateLocalSong (serverRow, serverData) {
     }
     var updtRow = { title: syncTitle, artist: syncArtist, album: syncAlbum, imgpath: syncImgPath, sid: syncSid }
     PlayList.splice(songloc, 1, updtRow);
-    localStorage.setItem(current_playlist.toLocaleLowerCase(), JSON.stringify(PlayList));
+    localStorage.setItem(current_playlist, JSON.stringify(PlayList));  
 
 }
 

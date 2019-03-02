@@ -90,7 +90,7 @@ function ProcessMessage(oMsgvalue) {
             if (select.options.length > 1) {
                 for (i = 1; i < select.options.length; i++) {
                     if (UI.titleExist(select.options[i].text, current_playlist) === false) {
-                        const playlist = current_playlist.toLocaleLowerCase();
+                        const playlist = current_playlist; //.toLocaleLowerCase();
                         const title = select.options[i].text;
                         const artist = "";
                         const album = "";
@@ -120,14 +120,14 @@ function ProcessMessage(oMsgvalue) {
     if (typeof obj.songs !== "undefined") {
         if (obj.songs.length > 0) {   
             setLoadState("Success", current_Loading, obj.songs)
-            console.log(`Loading.. ${current_Loading}`);
+            //console.log(`Loading.. ${current_Loading}`);
         }
     }
 
     if (typeof obj.show !== "undefined") {
         if (obj.show.length > 0) {
             setLoadState("Success", current_Loading, obj.show)
-            console.log(`Loading.. ${current_Loading}`);
+            //console.log(`Loading.. ${current_Loading}`);
         }
     }
 
@@ -154,7 +154,7 @@ function getShowConfig() {
 
 async function getPlaylistData(oPlaylist){
     //load local data cache file
-    await loadCachePlaylist(oPlaylist.toLocaleLowerCase())
+    await loadCachePlaylist(oPlaylist); //.toLocaleLowerCase())
 
     return new Promise((resolve, reject) => {
         setTimeout(() => {    
@@ -177,7 +177,7 @@ function ProcessStateChange() {
 
     //if data file is not found
     if (typeof (current_Data) === "undefined") {
-        console.log("Data not loaded");
+        //console.log("Data not loaded");
         //remove white spaces from image file
         var im = current_step.toString().replace(/\s+/g, '')
         if (im === "") {
@@ -196,7 +196,7 @@ function ProcessStateChange() {
             } else {
 
                 checkImageExists("img/" + im + ".jpg", function (existsImage) {
-                    console.log("no data--- img/" + im + ".jpg");
+                    //console.log("no data--- img/" + im + ".jpg");
 
                     if (existsImage == true) {
                         stepimg.src = "img/" + im + ".jpg";
@@ -212,7 +212,7 @@ function ProcessStateChange() {
 
       //data file is found load it
     } else {
-        console.log("data loaded")
+        //console.log("data loaded")
         //load current data row for current step
         GetCurrentRow(current_Data, current_step)  //file created get current row
 
@@ -292,4 +292,19 @@ window.onload = function () {
    
 }
 
+async function pushShowData(){
+    //load local data cache file
+    await setShowData();
 
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {    
+            location.reload();
+            const error = false;
+            if (!error) {
+                resolve("Sucess!")
+            } else {
+                reject("Error: Something went wrong!");
+            }
+        }, 2000);
+    });
+}

@@ -90,7 +90,6 @@ window.onload = function () {
             const song = new Song(title, artist, album, imgpath, sid);
 
             var actiontext;
-
             if (UI.titleExist(title, playlist) === true) {
 
                 // update play list in store
@@ -133,20 +132,10 @@ window.onload = function () {
         var pListData = JSON.parse(localStorage.getItem(xsKeyName));
         var xsData = JSON.stringify({songs:pListData});  
         
-        xsKeyName = xsKeyName.toString().charAt(0).toUpperCase() + xsKeyName.toString().substr(1).toLowerCase();
+        xsKeyName = xsKeyName;   
         download("Get" + xsKeyName + ".dat", xsData); 
     }
 }
-
-
-/* function processSelect() {
-    const playlisttbl = document.querySelector('#tbl-Play-List')
-    var e = document.getElementById("Sel_Plist");
-    if (playlisttbl.rows.length > 0) {
-        UI.clearTableRows();
-    }
-    loadPlayList(e.options[e.selectedIndex].text)
-}; */
 
 //load play list from localstore
 function loadPlayList(playlist) {
