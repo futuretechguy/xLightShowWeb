@@ -101,7 +101,7 @@ function ProcessMessage(oMsgvalue) {
                     }
                 }
             }
-          //use this local data 
+          //load this local data to a global variable 
           getPlaylistData(current_playlist);
 
         } else {
@@ -274,11 +274,6 @@ window.onload = function () {
         ws.send(cmdjson);
     };
 
-    document.querySelector("#Show-Title").onclick = function (evt) {
-        var showObj = JSON.parse(show_data)
-        document.querySelector("#Show-Title").innerHTML = showObj.name;
-        window.open(showObj.url);
-    }
 
     document.querySelector("#Btn_Back").onclick = function (evt) {
         var message;
@@ -293,12 +288,12 @@ window.onload = function () {
 }
 
 async function pushShowData(){
-    //load local data cache file
+    //Create GetShow.dat file on server
     await setShowData();
 
     return new Promise((resolve, reject) => {
         setTimeout(() => {    
-            location.reload();
+            getShowConfig();
             const error = false;
             if (!error) {
                 resolve("Sucess!")

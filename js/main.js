@@ -274,11 +274,10 @@ function checkImageExists(imageUrl, callBack) {
 
 
 
-function loadfbLink(objlink, eid) {
+function loadLink(objlink, eid) {
     var linkEl = document.querySelector(eid);
-    if (isNaN(linkEl) === true) {
-        window.open(linkEl.href, '_blank');
-        if (typeof objlink !== "undefined") {
+    if (typeof(linkEl) !== "undefined") {
+        if (typeof(objlink) !== "undefined") {
             if (objlink.toString().length > 0) {
                 linkEl.setAttribute('href', objlink)
             }
@@ -376,17 +375,20 @@ function setLoadState(oResult, oName, oData ) {
             pushShowData();
             //console.log("Show data file was not found");
         } else {
+            //current_showdata = oData[0];
             if (typeof oData[0].name !== "undefined") {
                 document.querySelector("#Show-Title").innerHTML = oData[0].name;
             }
-            //load Facebook and Youtube link if defined
+            //load Facebook, Youtube and title link if defined
+            if (typeof oData[0].youtube !== "undefined") {
+                loadLink(oData[0].url, "#Show-Title");
+            } 
             if (typeof oData[0].facebook !== "undefined") {
-                loadfbLink(oData[0].facebook, "#fburl");
+                loadLink(oData[0].facebook, "#fburl");
             }
             if (typeof oData[0].youtube !== "undefined") {
-                loadfbLink(oData[0].youtube, "#yturl");
-            }
-            
+                loadLink(oData[0].youtube, "#yturl");
+            } 
         }
        
     } else if (oName === 'Get' + current_playlist) {
@@ -500,6 +502,8 @@ function ProcessSysImage(img) {
    
 }
 
+
+//not used
 function saveImgLocal(img,base64Img){
     setTimeout(() => {
         var imgName = "img" + img.substring(8, img.indexOf("."))
@@ -510,7 +514,7 @@ function saveImgLocal(img,base64Img){
     },2000);
 }
 
-
+//not used
 function convertImgToBase64(url, callback, outputFormat){
     var img = new Image();
     img.crossOrigin = 'Anonymous';
@@ -527,9 +531,13 @@ function convertImgToBase64(url, callback, outputFormat){
     img.src = url;
 }
 
+
+//not used
 function setSessionItem(sItem, sValue){
     sessionStorage.setItem(sItem, sValue);
 }
+
+//not used
 function getSessionItem(sItem){
     var rsItem = sessionStorage.getItem(sItem);
     return rsItem;
