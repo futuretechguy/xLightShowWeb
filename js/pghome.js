@@ -262,7 +262,7 @@ window.onload = function () {
         if (stepsel.selectedIndex > 0) {
             var message;
             var jstep = stepsel.options[stepsel.selectedIndex].text;
-            message = { Type: "command", Command: "Jump to specified step in current playlist", Parameters: jstep.toString() };
+            message = { Type: "command", Command: "Jump to specified step in current playlist", Parameters: jstep.toString()};
             var cmdjson = JSON.stringify(message);
             ws.send(cmdjson);
         }
