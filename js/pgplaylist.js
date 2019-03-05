@@ -132,7 +132,6 @@ window.onload = function () {
         var pListData = JSON.parse(localStorage.getItem(xsKeyName));
         var xsData = JSON.stringify({songs:pListData});  
         
-        xsKeyName = xsKeyName;   
         download("Get" + xsKeyName + ".dat", xsData); 
     }
 }

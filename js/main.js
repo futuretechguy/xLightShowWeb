@@ -288,11 +288,10 @@ function loadLink(objlink, eid) {
 }
     
 
-
 function stashRetrieve(xsKeyName) {
     var xsKey = 'Get' + xsKeyName;   
-    current_Loading =xsKey;
-    var wsmessage = {Type:"stash", Command:"Retrieve",Key:xsKey, Data:"", Reference:""};
+    current_Loading = xsKey;
+    var wsmessage = {Type:"stash", Command:"Retrieve",Key:xsKey, Data:"", Reference:"stash"};
     var cmdjson = JSON.stringify(wsmessage);
     ws.send(cmdjson); 
 }
@@ -303,11 +302,10 @@ function stashStore(xsKeyName){
         xsKeyData = createPlayListObj(Current_PlaylistSteps)
     }
     var xsKey = 'Get' + xsKeyName;  
-    var xsData = JSON.stringify({songs:xsKeyData});      
-    
+    var xsData = JSON.stringify({songs:xsKeyData});    
+
     var wsmessage = {Type:"stash", Command:"Store", Key:xsKey, Data:xsData, Reference:""};
     var cmdjson = JSON.stringify(wsmessage);
-    console.log(cmdjson);
     ws.send(cmdjson);
 }
 
