@@ -81,6 +81,7 @@ function ProcessMessage(oMsgvalue) {
 
     //listen for and process the current step
     if (typeof obj.steps !== "undefined") {
+        Current_PlaylistSteps = obj.steps;
         var select = document.getElementById("Sel_Step");
         obj.steps.forEach(function (element) {
             select.options[select.options.length] = new Option(element.name, '0', false, false);
@@ -101,12 +102,13 @@ function ProcessMessage(oMsgvalue) {
                     }
                 }
             }
-          //load this local data to a global variable 
-          getPlaylistData(current_playlist);
+           //load this local data to a global variable 
+           getPlaylistData(current_playlist, "local");
 
         } else {
             //creat a new data object if local storage is not supported
-            createPlayListObj(obj.steps);
+            current_Data = createPlayListObj(obj.steps);
+            getPlaylistData(current_playlist, "server");
         }
     }
 
@@ -152,9 +154,9 @@ function getShowConfig() {
     }, 2000);
 }
 
-async function getPlaylistData(oPlaylist){
+async function getPlaylistData(oPlaylist, cacheLoc){
     //load local data cache file
-    await loadCachePlaylist(oPlaylist); //.toLocaleLowerCase())
+    await loadCachePlaylist(oPlaylist, cacheLoc); 
 
     return new Promise((resolve, reject) => {
         setTimeout(() => {    
@@ -212,7 +214,7 @@ function ProcessStateChange() {
 
       //data file is found load it
     } else {
-        //console.log("data loaded")
+        console.log("data loaded")
         //load current data row for current step
         GetCurrentRow(current_Data, current_step)  //file created get current row
 

@@ -11,13 +11,13 @@ var current_Loading;
 
 
 class Current {
-    constructor(current_status,current_playlist, current_step, current_nextstep, conn_status) {
+    constructor(current_status, current_playlist, current_step, current_nextstep, conn_status) {
         this.status = current_status;
         this.playlist = current_playlist;
         this.step = current_step;
         this.nextstep = current_nextstep;
         this.connstatus = conn_status;
-    }    
+    }
 }
 
 var current = new Current();
@@ -26,22 +26,22 @@ var current = new Current();
 // PlayList Class: Represents a step/song
 class Song {
     constructor(title, artist, album, imgpath, sid) {
-      this.title = title;
-      this.artist = artist;
-      this.album = album;
-      this.imgpath = imgpath;
-      this.sid = sid;
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.imgpath = imgpath;
+        this.sid = sid;
     }
-  }
+}
 
-  // UI Class: Handle UI Tasks
+// UI Class: Handle UI Tasks
 class UI {
     static displaySongs(pList) {
         const PlayList = Store.getSongs(pList);
         PlayList.forEach((song) => UI.addSongToTable(song));
-      
+
     }
-  
+
     //create table
     static addSongToTable(song) {
 
@@ -57,59 +57,59 @@ class UI {
         `
         rowcont.appendChild(row)
     }
- 
- 
+
+
     static showAlert(message, className) {
-      const adiv = document.createElement('div');
-      adiv.className = `alert alert-${className}`;
-      adiv.appendChild(document.createTextNode(message));
-      const msgalert = document.querySelector('#Msg-Alert');
-      msgalert.appendChild(adiv);
-  
-      // Vanish in 3 seconds
-      setTimeout(() => document.querySelector('.alert').remove(), 3000);
+        const adiv = document.createElement('div');
+        adiv.className = `alert alert-${className}`;
+        adiv.appendChild(document.createTextNode(message));
+        const msgalert = document.querySelector('#Msg-Alert');
+        msgalert.appendChild(adiv);
+
+        // Vanish in 3 seconds
+        setTimeout(() => document.querySelector('.alert').remove(), 3000);
     }
-  
+
     static clearFields() {
-      document.querySelector('#title').value = '';
-      document.querySelector('#artist').value = '';
-      document.querySelector('#album').value = '';
-      document.querySelector('#albumimg').value = '';
+        document.querySelector('#title').value = '';
+        document.querySelector('#artist').value = '';
+        document.querySelector('#album').value = '';
+        document.querySelector('#albumimg').value = '';
     }
 
     static clearTableRows() {
         const playlisttbl = document.querySelector('#tbl-Play-List');
         var rowcount = playlisttbl.rows.length;
         var i;
-        for (i = rowcount-1; i>0; i--) {
+        for (i = rowcount - 1; i > 0; i--) {
             playlisttbl.deleteRow(i);
-        } 
+        }
     }
 
     static sidExist(sid, plist) {
-        const PlayList = Store.getSongs(plist); 
+        const PlayList = Store.getSongs(plist);
         var truefalse = false;
         PlayList.forEach((song, index) => {
             if (song.sid === sid) {
                 truefalse = true;
-            } 
+            }
         });
-         return truefalse
+        return truefalse
     }
 
     static titleExist(title, plist) {
-        const PlayList = Store.getSongs(plist);  
+        const PlayList = Store.getSongs(plist);
         var truefalse = false;
         PlayList.forEach((song, index) => {
             if (song.title.toLocaleLowerCase() === title.toLocaleLowerCase()) {
                 truefalse = true;
-            } 
+            }
         });
-         return truefalse
+        return truefalse
     }
 
     static getSelectedRow() {
-        const tblcells = document.querySelector('#tbl-Play-List');        
+        const tblcells = document.querySelector('#tbl-Play-List');
         var i;
         var selid;
         for (i = 0; i < tblcells.rows.length; i++) {
@@ -122,7 +122,7 @@ class UI {
     }
 
     static selectedIndex() {
-        const tblcells = document.querySelector('#tbl-Play-List');        
+        const tblcells = document.querySelector('#tbl-Play-List');
         var selid;
         for (var i = 0; i < tblcells.rows.length; i++) {
             if (tblcells.rows[i].cells[0].childNodes[0].checked === true) {
@@ -144,7 +144,7 @@ class UI {
 
 
     static uncheckRows() {
-        const tblcells = document.querySelector('#tbl-Play-List');        
+        const tblcells = document.querySelector('#tbl-Play-List');
         for (var i = 1; i < tblcells.rows.length; i++) {
             if (tblcells.rows[i].cells[0].childNodes[0].checked === true) {
                 tblcells.rows[i].cells[0].childNodes[0].checked = false;
@@ -156,40 +156,40 @@ class UI {
     //for creating row IDs
     static guid() {
         function s4() {
-          return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
         }
         return s4() + s4() + s4();
-      }
+    }
 
     static plistExist(plist) {
         var i;
         var truefalse = fales;
         if (localStorage.length > 1) {
-            for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-                if (String(localStorage.key(i)) === plist) {  
+            for (var i = 0, len = localStorage.length; i < len; ++i) {
+                if (String(localStorage.key(i)) === plist) {
                     truefalse = true;
                 }
                 break;
-            } 
+            }
         }
         return truefalse;
     }
 }
 
 
-  // Store Class: Handles Storage
+// Store Class: Handles Storage
 class Store {
     static getallStorage() {
         var values = [],
             keys = Object.keys(localStorage),
             i = keys.length;
-    
-        while ( i-- ) {
-            values.push( localStorage.getItem(keys[i]) );
+
+        while (i--) {
+            values.push(localStorage.getItem(keys[i]));
         }
-    
+
         return values;
     }
 
@@ -202,63 +202,63 @@ class Store {
     }
 
     static getSongs(plist) {
-      let PlayList;
-      if(localStorage.getItem(plist) === null) {
-        PlayList = [];
-      } else {
-        PlayList = JSON.parse(localStorage.getItem(plist));
-      }
-      return PlayList;
+        let PlayList;
+        if (localStorage.getItem(plist) === null) {
+            PlayList = [];
+        } else {
+            PlayList = JSON.parse(localStorage.getItem(plist));
+        }
+        return PlayList;
     }
-  
+
     static addSong(song, plist) {
-      const PlayList = Store.getSongs(plist);
-      PlayList.push(song);
-      localStorage.setItem(plist, JSON.stringify(PlayList));
+        const PlayList = Store.getSongs(plist);
+        PlayList.push(song);
+        localStorage.setItem(plist, JSON.stringify(PlayList));
     }
-  
+
     static removeSong(deltitle, plist) {
         const PlayList = Store.getSongs(plist);
         var songloc;
         PlayList.forEach((song, index) => {
-            if(song.title === deltitle) {
+            if (song.title === deltitle) {
                 songloc = index;
             }
-        });  
-      PlayList.splice(songloc, 1);   
-      localStorage.setItem(plist, JSON.stringify(PlayList));
+        });
+        PlayList.splice(songloc, 1);
+        localStorage.setItem(plist, JSON.stringify(PlayList));
     }
 
-    static editSong(editsong, plist){
+    static editSong(editsong, plist) {
         const PlayList = Store.getSongs(plist);
         var songloc;
         PlayList.forEach((song, index) => {
-            if(song.title === editsong.title) {
+            if (song.title === editsong.title) {
                 songloc = index;
             }
-        }); 
+        });
         PlayList.splice(songloc, 1, editsong);
         localStorage.setItem(plist, JSON.stringify(PlayList));
     }
 
     static getCurrSong(title, plist) {
-       const PlayList = Store.getSongs(plist);  
-       var songItem
+        const PlayList = Store.getSongs(plist);
+        var songItem
         PlayList.forEach((song) => {
             if (song.title.toLocaleLowerCase() === title.toLocaleLowerCase()) {
                 songItem = song;
             }
-        });  
-           return songItem;
-        }
+        });
+        return songItem;
+    }
 }
 
 function checkImageExists(imageUrl, callBack) {
     var imageData = new Image();
-    imageData.onload = function() {
+    imageData.onload = function () {
         callBack(true);
     };
-    imageData.onerror = function() {
+    imageData.onerror = function () {
         callBack(false);
     };
     imageData.src = imageUrl;
@@ -276,8 +276,8 @@ function checkImageExists(imageUrl, callBack) {
 
 function loadLink(objlink, eid) {
     var linkEl = document.querySelector(eid);
-    if (typeof(linkEl) !== "undefined") {
-        if (typeof(objlink) !== "undefined") {
+    if (typeof (linkEl) !== "undefined") {
+        if (typeof (objlink) !== "undefined") {
             if (objlink.toString().length > 0) {
                 linkEl.setAttribute('href', objlink)
             }
@@ -286,30 +286,30 @@ function loadLink(objlink, eid) {
         }
     }
 }
-    
+
 
 function stashRetrieve(xsKeyName) {
-    var xsKey = 'Get' + xsKeyName;   
+    var xsKey = 'Get' + xsKeyName;
     current_Loading = xsKey;
-    var wsmessage = {Type:"stash", Command:"Retrieve",Key:xsKey, Data:"", Reference:"stash"};
-    var cmdjson = JSON.stringify(wsmessage);
-    ws.send(cmdjson); 
-}
-
-function stashStore(xsKeyName){
-    var xsKeyData = JSON.parse(localStorage.getItem(xsKeyName)); 
-    if (typeof xsKeyData === "undefined") {
-        xsKeyData = createPlayListObj(Current_PlaylistSteps)
-    }
-    var xsKey = 'Get' + xsKeyName;  
-    var xsData = JSON.stringify({songs:xsKeyData});    
-
-    var wsmessage = {Type:"stash", Command:"Store", Key:xsKey, Data:xsData, Reference:""};
+    var wsmessage = { Type: "stash", Command: "Retrieve", Key: xsKey, Data: "", Reference: "stash" };
     var cmdjson = JSON.stringify(wsmessage);
     ws.send(cmdjson);
 }
 
-function SetConnectionStatus(ostatus){
+function stashStore(xsKeyName) {
+    //var xsKeyData = JSON.parse(localStorage.getItem(xsKeyName)); 
+    //if (typeof xsKeyData === "undefined") {
+    xsKeyData = createPlayListObj(Current_PlaylistSteps)
+    //}
+    var xsKey = 'Get' + xsKeyName;
+    var xsData = JSON.stringify({ songs: xsKeyData });
+
+    var wsmessage = { Type: "stash", Command: "Store", Key: xsKey, Data: xsData, Reference: "stash" };
+    var cmdjson = JSON.stringify(wsmessage);
+    ws.send(cmdjson);
+}
+
+function SetConnectionStatus(ostatus) {
     conn_status = document.getElementById("Server_Status");
     conn_status.innerHTML = ostatus
     if (ostatus === "Connected!") {
@@ -317,20 +317,20 @@ function SetConnectionStatus(ostatus){
 
     } else if (ostatus === "Connection closed!") {
         conn_status.style.color = "red";
-        current_status = "Disconnected"; 
+        current_status = "Disconnected";
     } else if (ostatus === "Status: an error occured") {
-        conn_status.style.color = "red"; 
+        conn_status.style.color = "red";
     }
 }
 
 
-function addOption(el){
+function addOption(el) {
     var select = document.getElementById(el);
     select.options[select.options.length] = new Option('New Element', '0', false, false);
 
 }
 
-function removeAllOptions(el){
+function removeAllOptions(el) {
     var select = document.getElementById(el);
     select.options.length = 0;
 }
@@ -341,8 +341,8 @@ function allStorage() {
         keys = Object.keys(localStorage),
         i = keys.length;
 
-    while ( i-- ) {
-        values.push( localStorage.getItem(keys[i]) );
+    while (i--) {
+        values.push(localStorage.getItem(keys[i]));
     }
 
     return values;
@@ -354,22 +354,22 @@ function setShowData() {
     var yt = "https://youtu.be/pF12-3h8hpA"
     var st = "8:00PM - 10:00PM"
     var fb = "https://www.facebook.com/groups/628061113896314/"
-    var site= "http://xlights.org"
+    var site = "http://xlights.org"
 
-    sdata = {name:sn,youtube:yt,time:st,facebook:fb,url:site}
+    sdata = { name: sn, youtube: yt, time: st, facebook: fb, url: site }
     var kvp = {};
     kvp[xsKey] = [];
-    kvp[xsKey].push(sdata); 
+    kvp[xsKey].push(sdata);
     var xsData = JSON.stringify(kvp);
-    var wsMessage = {Type:"stash",Command:"Store",Key:"GetShow",Data:xsData,Reference:""}
+    var wsMessage = { Type: "stash", Command: "Store", Key: "GetShow", Data: xsData, Reference: "" }
     var cmdjson = JSON.stringify(wsMessage);
     ws.send(cmdjson);
 }
 
-function setLoadState(oResult, oName, oData ) {
+function setLoadState(oResult, oName, oData) {
 
     if (oName === "GetShow") {
-        if (oResult === "Failed"){
+        if (oResult === "Failed") {
             pushShowData();
             //console.log("Show data file was not found");
         } else {
@@ -380,50 +380,55 @@ function setLoadState(oResult, oName, oData ) {
             //load Facebook, Youtube and title link if defined
             if (typeof oData[0].youtube !== "undefined") {
                 loadLink(oData[0].url, "#Show-Title");
-            } 
+            }
             if (typeof oData[0].facebook !== "undefined") {
                 loadLink(oData[0].facebook, "#fburl");
             }
             if (typeof oData[0].youtube !== "undefined") {
                 loadLink(oData[0].youtube, "#yturl");
-            } 
+            }
         }
-       
+
     } else if (oName === 'Get' + current_playlist) {
-        if (oResult === "Failed"){
+        if (oResult === "Failed") {
             stashStore(current_playlist);
             //console.log(`loading...  ${current_playlist}`);
         } else {
             //push data to clients
-            if (typeof(oData) !== "undefined") {
-                oData.forEach((song, index) => {
-                    localsong = getLocalRow(song.title);
-                    if(song.title === localsong.title) {
-                        for (var i = 0; i < Object.values(song).length; i++) {
-                            if (Object.values(song)[i] !== Object.values(localsong)[i] && Object.values(song)[i] !== "")  {
-                                if (Object.keys(localsong)[i] !== "sid") {
-                                    updateLocalSong(song, oData);
-                                    break;
-                                } 
+            if (typeof (oData) !== "undefined") {
+                if (Store.canStoreData() === true) {
+                    oData.forEach((song, index) => {
+                        localsong = getLocalRow(song.title);
+                        if (song.title === localsong.title) {
+                            for (var i = 0; i < Object.values(song).length; i++) {
+                                if (Object.values(song)[i] !== Object.values(localsong)[i] && Object.values(song)[i] !== "") {
+                                    if (Object.keys(localsong)[i] !== "sid") {
+                                        updateLocalSong(song, oData);
+                                        break;
+                                    }
+                                }
                             }
                         }
-                    }
-                }); 
-                loadCachePlaylist(current_playlist)
-                ProcessStateChange();
-                //console.log("Loaded from server");
+                    });
+                    loadCachePlaylist(current_playlist, "local")
+                    //Loaded from Local store"
+                } else {
+                    current_Data = oData;
+                    //Loaded from server
+                }
+                ProcessStateChange(); 
             }
         }
     }
 }
 
 
-
-function loadCachePlaylist(xsKey){
-    var xsKeyData = JSON.parse(localStorage.getItem(xsKey)); 
-    current_Data = xsKeyData;
+function loadCachePlaylist(xsKey, cacheLoc) {
+    if (cacheLoc === "local") {
+        var xsKeyData = JSON.parse(localStorage.getItem(xsKey));
+        current_Data = xsKeyData;
+    } 
 }
-
 
 function GetCurrentRow(oData, oStep) {
     for (i = 0; i < oData.length; i++) {
@@ -434,27 +439,27 @@ function GetCurrentRow(oData, oStep) {
     }
 }
 //used by sync process
-function getLocalRow(otitle){
+function getLocalRow(otitle) {
     var oIndex
-    var xsKeyData = JSON.parse(localStorage.getItem(current_playlist)); 
-        for (i = 0; i < xsKeyData .length; i++) {
-            if (xsKeyData[i].title.toLocaleLowerCase() === otitle.toLocaleLowerCase()) {
-                oIndex = i;
-                break;
-            }
+    var xsKeyData = JSON.parse(localStorage.getItem(current_playlist));
+    for (i = 0; i < xsKeyData.length; i++) {
+        if (xsKeyData[i].title.toLocaleLowerCase() === otitle.toLocaleLowerCase()) {
+            oIndex = i;
+            break;
         }
-        return xsKeyData[oIndex];
+    }
+    return xsKeyData[oIndex];
 }
 //sync server data to client's local cache
-function updateLocalSong (serverRow, serverData) {
+function updateLocalSong(serverRow, serverData) {
     var songloc;
-    const PlayList = JSON.parse(localStorage.getItem(current_playlist)); 
-   
+    const PlayList = JSON.parse(localStorage.getItem(current_playlist));
+
     PlayList.forEach((song, index) => {
-        if(song.title.toLocaleLowerCase() === serverRow.title.toLocaleLowerCase()) {
+        if (song.title.toLocaleLowerCase() === serverRow.title.toLocaleLowerCase()) {
             songloc = index;
         }
-    }); 
+    });
 
     var syncSid = serverRow.sid;
     var syncTitle = serverRow.title;
@@ -479,16 +484,16 @@ function updateLocalSong (serverRow, serverData) {
     }
     var updtRow = { title: syncTitle, artist: syncArtist, album: syncAlbum, imgpath: syncImgPath, sid: syncSid }
     PlayList.splice(songloc, 1, updtRow);
-    localStorage.setItem(current_playlist, JSON.stringify(PlayList));  
+    localStorage.setItem(current_playlist, JSON.stringify(PlayList));
 
 }
 
 
 function createPlayListObj(steps) {
     var SongRow = {};
-    SongRow =[]; 
+    SongRow = [];
     steps.forEach((song) => {
-        SongRow.push({title:song.name, artist:"", album:"",imgpath:"", sid:UI.guid()});
+        SongRow.push({ title: song.name, artist: "", album: "", imgpath: "", sid: UI.guid() });
     });
     return SongRow;
 }
@@ -496,47 +501,47 @@ function createPlayListObj(steps) {
 
 //for saving system images to local cache (not used)
 function ProcessSysImage(img) {
-    convertImgToBase64(img, function(base64Img){saveImgLocal(img,base64Img);})
-   
+    convertImgToBase64(img, function (base64Img) { saveImgLocal(img, base64Img); })
+
 }
 
 
 //not used
-function saveImgLocal(img,base64Img){
+function saveImgLocal(img, base64Img) {
     setTimeout(() => {
         var imgName = "img" + img.substring(8, img.indexOf("."))
         var storedImg = localStorage.getItem(imgName);
-        if (typeof(storedImg) === "undefined") {
-            localStorage.setItem(imgName, base64Img);   
+        if (typeof (storedImg) === "undefined") {
+            localStorage.setItem(imgName, base64Img);
         }
-    },2000);
+    }, 2000);
 }
 
 //not used
-function convertImgToBase64(url, callback, outputFormat){
+function convertImgToBase64(url, callback, outputFormat) {
     var img = new Image();
     img.crossOrigin = 'Anonymous';
-    img.onload = function(){
+    img.onload = function () {
         var canvas = document.createElement('CANVAS');
         var ctx = canvas.getContext('2d');
         canvas.height = this.height;
         canvas.width = this.width;
-        ctx.drawImage(this,0,0);
+        ctx.drawImage(this, 0, 0);
         var dataURL = canvas.toDataURL(outputFormat || 'image/png');
         callback(dataURL);
-        canvas = null; 
+        canvas = null;
     };
     img.src = url;
 }
 
 
 //not used
-function setSessionItem(sItem, sValue){
+function setSessionItem(sItem, sValue) {
     sessionStorage.setItem(sItem, sValue);
 }
 
 //not used
-function getSessionItem(sItem){
+function getSessionItem(sItem) {
     var rsItem = sessionStorage.getItem(sItem);
     return rsItem;
 }
